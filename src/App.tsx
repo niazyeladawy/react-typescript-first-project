@@ -1,17 +1,22 @@
 
+import { useState } from 'react'
+import NewTodo from './components/NewTodo'
 import Todos from './components/Todos'
 import Todo from './models/todo'
 
 function App() {
 
-  const todos = [
-    new Todo('learn'),
-    new Todo('make')
-  ]
+  const [todos, setTodos] = useState<Todo[]>([])
+
+  const addTodoHandler = (todoText: string) => {
+
+    setTodos((prev) => prev.concat(new Todo(todoText)))
+  }
 
   return (
     <div>
-        <Todos items={todos} />
+      <NewTodo onAddTodo={addTodoHandler} />
+      <Todos items={todos} />
     </div>
   )
 }
